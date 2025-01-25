@@ -1,8 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bw1x46prg2wee"]
+[gd_scene load_steps=4 format=3 uid="uid://bw1x46prg2wee"]
 
 [ext_resource type="PackedScene" uid="uid://dpc8ee7s2w345" path="res://Player.tscn" id="1_jdotb"]
+[ext_resource type="Script" path="res://main.gd" id="1_xlet0"]
+[ext_resource type="PackedScene" uid="uid://kxm1oq5wryy8" path="res://magnet.tscn" id="2_cxgcf"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_xlet0")
 
 [node name="Player" parent="." instance=ExtResource("1_jdotb")]
 position = Vector2(251, 94)
+
+[node name="Magnet" parent="." instance=ExtResource("2_cxgcf")]
+position = Vector2(41, 233)
