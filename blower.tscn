@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://df8o3oablyt20"]
+[gd_scene load_steps=4 format=3 uid="uid://df8o3oablyt20"]
+
+[ext_resource type="Script" path="res://blower.gd" id="1_coshg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c72tg"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_vop6e"]
 size = Vector2(50, 50)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Blower" type="Area2D"]
+script = ExtResource("1_coshg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_c72tg")

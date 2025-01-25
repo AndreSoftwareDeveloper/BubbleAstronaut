@@ -11,7 +11,6 @@ var target_velocity := Vector2.ZERO
 @onready var blower: CharacterBody2D = $"../Blower"
 @onready var main_script = get_node("/root/Main")
 
-
 var blowing_timer : bool = false
 var timer : float = 0.0
 var interval_true : float = 1.0
@@ -33,8 +32,8 @@ func _physics_process(delta: float) -> void:
 		else:
 			target_velocity = input_direction * SPEED
 	else:
-		if blower != null:
-			var direction_to_blower = position - blower.position
+		if main_script.blower_instance != null:
+			var direction_to_blower = position - main_script.blower_instance.position
 			direction_to_blower = direction_to_blower.normalized()
 			timer += delta
 
