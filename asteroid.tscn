@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://djucrbu1piovt"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mmrpp"]
+size = Vector2(50, 50)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_efuwc"]
+
+[node name="asteroid" type="CharacterBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("PlaceholderTexture2D_mmrpp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_efuwc")
