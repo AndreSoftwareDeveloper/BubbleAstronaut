@@ -9,7 +9,7 @@ var target_velocity := Vector2.ZERO
 
 @onready var magnet: CharacterBody2D = $"../Magnet"
 @onready var blower: CharacterBody2D = $"../Blower"
-@onready var main_script = get_node("/root/Main")  # Zakładając, że Main jest w root'cie sceny.
+@onready var main_script = get_node("/root/Main")
 
 
 var blowing_timer : bool = false
@@ -49,10 +49,6 @@ func _physics_process(delta: float) -> void:
 				if timer >= interval_false:
 					blowing_timer = true
 					timer = 0.0
-			
-		
-			
-			
 		else:
 			if main_script.ufo_instance != null:
 				var direction_to_magnet = main_script.ufo_instance.position - position
