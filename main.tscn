@@ -7,4 +7,4 @@
 script = ExtResource("1_xlet0")
 
 [node name="Player" parent="." instance=ExtResource("1_jdotb")]
-position = Vector2(1009, 541)
+position = Vector2(833, 334)

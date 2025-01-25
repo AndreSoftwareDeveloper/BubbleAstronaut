@@ -23,15 +23,12 @@ var asteroid_scene: PackedScene
 var spawn_area_size: Vector2
 
 func spawn_asteroid(scene: PackedScene, area_size: Vector2) -> void:
-	var asteroid_instance = scene.instantiate() as CharacterBody2D
+	var asteroid_instance = scene.instantiate() as Area2D
 	
 	var random_position = Vector2(
-		randf() * area_size.x,
+		area_size.x,
 		randf() * area_size.y
 	)
 
 	asteroid_instance.position = random_position
 	add_child(asteroid_instance)
-
-	var asteroid_movement_direction = Vector2(randf() * 2 - 1, randf() * 2 - 1).normalized()
-	asteroid_instance.velocity = asteroid_movement_direction * 150
