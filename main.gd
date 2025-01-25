@@ -1,7 +1,13 @@
 extends Node2D
 
-var timer : float = 0.0
+var asteroid_timer : float = 0.0
+var ufo_timer : float = 0.0
+var cloud_timer : float = 0.0
+
 var interval_asteroids_spawning = 1.0
+var interval_ufo_spawning = 10.0
+var interval_cloud_spawning = 17.0
+
 const ASTEROID_SCENE = preload("res://asteroid.tscn")
 const UFO_SCENE = preload("res://magnet_ufo.tscn")
 const BLOWER_SCENE = preload("res://blower.tscn")
@@ -11,12 +17,19 @@ const SPAWN_AREA_SIZE = Vector2(1920, 1080)
 @export var blower_instance: Area2D
 
 func _process(delta: float) -> void:
-	timer += delta
-	if timer >= interval_asteroids_spawning:
+	asteroid_timer += delta
+	ufo_timer += delta
+	cloud_timer += delta
+	
+	if asteroid_timer >= interval_asteroids_spawning:
 		spawn_object(ASTEROID_SCENE, SPAWN_AREA_SIZE)
+		asteroid_timer = 0.0
+	if ufo_timer >= interval_ufo_spawning:
 		spawn_object(UFO_SCENE, SPAWN_AREA_SIZE)
+		ufo_timer = 0.0
+	if cloud_timer >= interval_cloud_spawning:
 		spawn_object(BLOWER_SCENE, SPAWN_AREA_SIZE)
-		timer = 0.0
+		cloud_timer = 0.0
 	
 func move_random_direction(object: CharacterBody2D, speed: float, direction: Vector2) -> void:
 	object.velocity = direction * speed
