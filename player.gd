@@ -9,14 +9,11 @@ var target_velocity := Vector2.ZERO
 
 @onready var magnet: CharacterBody2D = $"../Magnet"
 @onready var blower: CharacterBody2D = $"../Blower"
-@onready var asteroid: CharacterBody2D = $"../asteroid"
 
 var blowing_timer : bool = false
 var timer : float = 0.0
 var interval_true : float = 1.0
 var interval_false : float = 2.0
-
-var asteroid_movement_direction = Vector2(randf() * 2 - 1, randf() * 2 - 1).normalized()
 
 func _physics_process(delta: float) -> void:
 	var input_direction := Vector2(
@@ -64,10 +61,3 @@ func _physics_process(delta: float) -> void:
 		velocity = velocity.move_toward(target_velocity, DECELERATION * delta)
 
 	move_and_slide()
-	move_random_direction(asteroid, 100.0, asteroid_movement_direction)
-	
-func move_random_direction(object: CharacterBody2D, speed: float, direction: Vector2) -> void:
-	object.velocity = direction * speed
-	object.move_and_slide()
-
-		
