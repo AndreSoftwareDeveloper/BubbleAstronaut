@@ -6,8 +6,14 @@ const DECELERATION = 130.0
 const TURN_DECELERATION = 200.0
 
 var target_velocity := Vector2.ZERO
+
 @onready var magnet: CharacterBody2D = $"../Magnet"
 @onready var blower: CharacterBody2D = $"../Blower"
+
+var blowing_timer : bool = false
+var timer : float = 0.0
+var interval_true : float = 1.0
+var interval_false : float = 2.0
 
 func _physics_process(delta: float) -> void:
 	var input_direction := Vector2(
@@ -28,7 +34,20 @@ func _physics_process(delta: float) -> void:
 		if blower != null:
 			var direction_to_blower = position - blower.position
 			direction_to_blower = direction_to_blower.normalized()
-			target_velocity = direction_to_blower * BLOWING_SPEED
+			timer += delta
+
+			if blowing_timer == true:
+				target_velocity = direction_to_blower * BLOWING_SPEED
+				
+				if timer >= interval_true:
+					blowing_timer = false
+					timer = 0.0
+			else:
+				target_velocity = Vector2.ZERO
+				if timer >= interval_false:
+					blowing_timer = true
+					timer = 0.0
+			
 		elif magnet != null:
 			var direction_to_magnet = magnet.position - position
 			direction_to_magnet = direction_to_magnet.normalized()
@@ -36,6 +55,9 @@ func _physics_process(delta: float) -> void:
 		else:
 			target_velocity = Vector2.ZERO
 	
-	velocity = velocity.move_toward(target_velocity, DECELERATION * delta)
+	if blowing_timer:
+		velocity = velocity.move_toward(target_velocity, 270 * delta)
+	else:
+		velocity = velocity.move_toward(target_velocity, DECELERATION * delta)
 
 	move_and_slide()
