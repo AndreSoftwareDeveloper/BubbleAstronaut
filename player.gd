@@ -1,11 +1,13 @@
 extends CharacterBody2D
 
 const SPEED = 220.0
+const BLOWING_SPEED = 1000
 const DECELERATION = 130.0
 const TURN_DECELERATION = 200.0
 
 var target_velocity := Vector2.ZERO
 @onready var magnet: CharacterBody2D = $"../Magnet"
+@onready var blower: CharacterBody2D = $"../Blower"
 
 func _physics_process(delta: float) -> void:
 	var input_direction := Vector2(
@@ -23,9 +25,16 @@ func _physics_process(delta: float) -> void:
 		else:
 			target_velocity = input_direction * SPEED
 	else:
-		var direction_to_magnet = magnet.position - position
-		direction_to_magnet = direction_to_magnet.normalized()
-		target_velocity = direction_to_magnet * SPEED
+		if blower != null:
+			var direction_to_blower = position - blower.position
+			direction_to_blower = direction_to_blower.normalized()
+			target_velocity = direction_to_blower * BLOWING_SPEED
+		elif magnet != null:
+			var direction_to_magnet = magnet.position - position
+			direction_to_magnet = direction_to_magnet.normalized()
+			target_velocity = direction_to_magnet * SPEED
+		else:
+			target_velocity = Vector2.ZERO
 	
 	velocity = velocity.move_toward(target_velocity, DECELERATION * delta)
 
