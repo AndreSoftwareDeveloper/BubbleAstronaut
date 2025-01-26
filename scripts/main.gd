@@ -15,6 +15,8 @@ var interval_ufo_spawning = 10.0
 var interval_cloud_spawning = 17.0
 var interval_bubble_spawning = null
 
+var score = 0.0
+
 const ASTEROID_SCENE = preload("res:///scenes/asteroid.tscn")
 const UFO_SCENE = preload("res://scenes/magnet_ufo.tscn")
 const BLOWER_SCENE = preload("res://scenes/blower.tscn")
@@ -28,20 +30,15 @@ const SPAWN_AREA_SIZE = Vector2(1920, 1080)
 var background_speed = 200.0
 
 @onready var my_label: Label = $Label
-	
-func _ready():
-	if not background1 or not background2:
-		print("Backgrounds not found or invalid!")
-	else:
-		print("Backgrounds found and ready.")
 
 func _process(delta: float) -> void:
-	my_label.text = "HEALTH: %d \n SCORE:" % health
+	my_label.text = "HEALTH: %d \n SCORE: %d" % [health, score]
 	asteroid_timer += delta
 	ufo_timer += delta
 	cloud_timer += delta
 	bubble_timer += delta
 	interval_bubble_spawning = randf_range(8.0, 20.0)
+	score += delta
 	
 	if background1 and background2:
 		move_backgrounds(delta)
@@ -58,6 +55,11 @@ func _process(delta: float) -> void:
 	if bubble_timer >= interval_bubble_spawning:
 		spawn_object(BUBBLE_SCENE, SPAWN_AREA_SIZE)
 		bubble_timer = 0.0
+		
+	if health < 0:
+		health = 0
+	if health == 0:
+		get_tree().quit()
 	
 func move_backgrounds(delta: float) -> void:
 	background1.position.x -= background_speed * delta
