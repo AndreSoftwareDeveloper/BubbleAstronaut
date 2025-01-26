@@ -18,4 +18,8 @@ func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("player"):  # Check if it's the player
 		#sound_player.play()  # Play sound effect (optional) TODO is null, fix it
 		queue_free()  # Remove the bubble from the scene
-		main_script.health += 10;
+		
+		if main_script.health < 91: #Max health is 100
+			main_script.health += 10
+		else:
+			main_script.health = 100
