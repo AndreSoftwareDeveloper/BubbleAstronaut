@@ -25,6 +25,7 @@ const BUBBLE_SCENE = preload("res://scenes/bubbles.tscn")
 const GAME_OVER_SCENE = preload("res://scenes/game_over.tscn")
 
 const SPAWN_AREA_SIZE = Vector2(1920, 1080)
+var high_scores_file : FileAccess
 
 @export var ufo_instance: Area2D
 @export var blower_instance: Area2D
@@ -33,7 +34,7 @@ const SPAWN_AREA_SIZE = Vector2(1920, 1080)
 var background_speed = 200.0
 
 @onready var my_label: Label = $Label
-
+	
 func _process(delta: float) -> void:
 	my_label.text = "HEALTH: %d \n SCORE: %d" % [health, score]
 	asteroid_timer += delta
@@ -84,6 +85,7 @@ func _process(delta: float) -> void:
 				high_scores_file.store_line(line)
 		high_scores_file.close()
 			
+		score = 5.0
 		get_tree().change_scene_to_packed(GAME_OVER_SCENE)
 	
 func move_backgrounds(delta: float) -> void:
