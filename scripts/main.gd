@@ -15,12 +15,15 @@ var interval_ufo_spawning = 10.0
 var interval_cloud_spawning = 17.0
 var interval_bubble_spawning = null
 
-var score = 0.0
+@export var score : int = 0.0
+var high_scores := []
 
 const ASTEROID_SCENE = preload("res:///scenes/asteroid.tscn")
 const UFO_SCENE = preload("res://scenes/magnet_ufo.tscn")
 const BLOWER_SCENE = preload("res://scenes/blower.tscn")
 const BUBBLE_SCENE = preload("res://scenes/bubbles.tscn")
+const GAME_OVER_SCENE = preload("res://scenes/game_over.tscn")
+
 const SPAWN_AREA_SIZE = Vector2(1920, 1080)
 
 @export var ufo_instance: Area2D
@@ -58,8 +61,30 @@ func _process(delta: float) -> void:
 		
 	if health < 0:
 		health = 0
-	if health == 0:
-		get_tree().quit()
+		
+	if health <= 100:
+		var high_scores_file := FileAccess.open("scores.txt", FileAccess.READ)
+		var lines = []
+		while not high_scores_file.eof_reached():
+			var line = high_scores_file.get_line()
+			lines.append(line)
+			
+		lines.append(str(score))
+		high_scores_file.close()
+
+		high_scores_file = FileAccess.open("scores.txt", FileAccess.WRITE)
+		
+		if lines.size() >= 2:
+			lines.sort_custom(func(a, b): return a > b)
+		if lines.size() > 10:
+			lines = lines.slice(0, 10)
+		
+		for line in lines:
+			if line != "":
+				high_scores_file.store_line(line)
+		high_scores_file.close()
+			
+		get_tree().change_scene_to_packed(GAME_OVER_SCENE)
 	
 func move_backgrounds(delta: float) -> void:
 	background1.position.x -= background_speed * delta
