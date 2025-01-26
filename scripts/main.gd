@@ -36,7 +36,7 @@ func _ready():
 		print("Backgrounds found and ready.")
 
 func _process(delta: float) -> void:
-	my_label.text = "HEALTH: %d" % health
+	my_label.text = "HEALTH: %d \n SCORE:" % health
 	asteroid_timer += delta
 	ufo_timer += delta
 	cloud_timer += delta

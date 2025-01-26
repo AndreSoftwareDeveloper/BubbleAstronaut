@@ -57,7 +57,7 @@ func _physics_process(delta: float) -> void:
 				target_velocity = Vector2.ZERO
 	
 	if blowing_timer:
-		velocity = velocity.move_toward(target_velocity, 270 * delta)
+		velocity = velocity.move_toward(target_velocity, 500 * delta)
 	else:
 		velocity = velocity.move_toward(target_velocity, DECELERATION * delta)
 
