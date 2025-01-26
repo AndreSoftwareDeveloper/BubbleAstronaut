@@ -10,7 +10,7 @@ var ufo_timer : float = 0.0
 var cloud_timer : float = 0.0
 var bubble_timer : float = 0.0
 
-var interval_asteroids_spawning = 1.0
+var interval_asteroids_spawning = 0.4
 var interval_ufo_spawning = 10.0
 var interval_cloud_spawning = 17.0
 var interval_bubble_spawning = null
